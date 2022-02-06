@@ -3,7 +3,7 @@ import {RootState} from "../redux-store";
 
 let initialState = {
     initialized: false,
-    people: [],
+    blog: [],
     planets: []
 };
 
@@ -15,15 +15,14 @@ const appSlice = createSlice({
         initializedSuccess: (state) => {
             state.initialized = !state.initialized;
         },
-        addPeople: (state,action) => {
-            state.people = action.payload
+        setBlogData: (state,action) => {
+            state.blog = action.payload
         },
         addPlanets: (state,action) => {
-            state.people = action.payload
         }
     },
 });
 
-export const { initializedSuccess, addPeople, addPlanets } = appSlice.actions;
+export const { initializedSuccess, setBlogData, addPlanets } = appSlice.actions;
 export const initialSelector = (state: RootState) => state.app;
 export default appSlice.reducer;

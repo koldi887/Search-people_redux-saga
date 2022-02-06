@@ -5,14 +5,17 @@ import App from './App';
 import {Provider} from "react-redux";
 import {sagaMiddleware, setupStore} from "./redux/redux-store";
 import rootSaga from "./redux/sagas";
+import {BrowserRouter} from "react-router-dom";
 
 const store = setupStore()
 sagaMiddleware.run(rootSaga)
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>,
+    <BrowserRouter>
+        <Provider store={store}>
+            <App/>
+        </Provider>
+    </BrowserRouter>,
     document.getElementById('root')
 );
 
