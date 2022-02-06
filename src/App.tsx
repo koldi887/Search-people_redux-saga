@@ -1,24 +1,16 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {useAppDispatch, useAppSelector} from "./hooks/redux";
+import {initializedSuccess, initialSelector} from "./redux/slices/appSlice";
 
 function App() {
+  const {initialized,people} = useAppSelector(initialSelector)
+
+  const dispatch = useAppDispatch()
+console.log(people)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={() => dispatch(initializedSuccess())}>click</button>
     </div>
   );
 }
