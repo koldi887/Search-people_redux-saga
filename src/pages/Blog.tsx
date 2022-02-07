@@ -1,13 +1,6 @@
-import React, {useEffect} from 'react';
-import {useAppDispatch} from "../hooks/redux";
-import {setBlogData} from "../redux/slices/appSlice";
+import React from 'react';
 
 export const Blog = () => {
-    const dispatch = useAppDispatch()
-
-    useEffect(() => {
-        dispatch(setBlogData([]))
-    }, [])
 
     return (
         <div>
