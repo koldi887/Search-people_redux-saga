@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
 import {useAppDispatch, useAppSelector} from "./hooks/redux";
-import {initialSelector} from "./redux/slices/appSlice";
 import {Link, Routes} from 'react-router-dom';
 import { Route } from 'react-router';
 import {Blog} from "./pages/Blog";
 import {NotFound} from "./pages/NotFound";
 
 function App() {
-  const {initialized} = useAppSelector(initialSelector)
 
   const dispatch = useAppDispatch()
 

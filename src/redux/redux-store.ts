@@ -1,17 +1,17 @@
 import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
-import appSlice from "./slices/appSlice";
 import {createReduxHistoryContext} from "redux-first-history";
 import {createBrowserHistory} from "history";
+import peopleSlice from "./reducers/people/peopleSlice";
 
 const {
     createReduxHistory,
     routerMiddleware,
     routerReducer
-} = createReduxHistoryContext({ history: createBrowserHistory() });
+} = createReduxHistoryContext({history: createBrowserHistory()});
 
 export const rootReducer = combineReducers({
-    app: appSlice,
+    people: peopleSlice,
     router: routerReducer
 });
 
@@ -20,7 +20,8 @@ export let sagaMiddleware = createSagaMiddleware();
 export const setupStore = () => {
     return configureStore({
         reducer: rootReducer,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(sagaMiddleware,routerMiddleware).concat(routerMiddleware),
+        middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+            .concat(sagaMiddleware, routerMiddleware),
     });
 };
 
