@@ -12,7 +12,7 @@ export const Blog = () => {
     return (
         <div>
             <Link to={'/'}>Home</Link>
-            {data?.results.map((item, index) => <div key={index}>{item.name}</div>)}
+            {/*{data?.results.map((item, index) => <div key={index}>{item.name}</div>)}*/}
         </div>
     );
 };

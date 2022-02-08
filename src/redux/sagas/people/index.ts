@@ -27,7 +27,7 @@ export function* loadUsersOnRouteEnter() {
                 console.log(action)
         if (action.payload.location.pathname === '/') {
             const {page, search} = yield select(peopleSelector)
-            yield put(loadUsers({page, search}))
+            yield put(loadUsers({page,search}))
         }
     }
 }

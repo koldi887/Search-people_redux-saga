@@ -4,11 +4,7 @@ import './index.css';
 import App from './App';
 import {HistoryRouter as Router} from "redux-first-history/rr6";
 import {Provider} from "react-redux";
-import {history, sagaMiddleware, setupStore} from "./redux/redux-store";
-import rootSaga from "./redux/sagas";
-
-const store = setupStore()
-sagaMiddleware.run(rootSaga)
+import store, {history} from "./redux/redux-store";
 
 ReactDOM.render(
     <Provider store={store}>

@@ -15,6 +15,7 @@ const peopleSlice = createSlice({
     initialState,
     reducers: {
         loadUsers: (state, action) => {
+            console.log(action)
             const {page, search} = action.payload
             return {
                 ...state,
@@ -25,7 +26,7 @@ const peopleSlice = createSlice({
         },
 
         loadUsersSuccess: (state, action) => {
-            console.log(action.payload)
+            console.log(action)
             return {
                 ...state,
                 loading: false,

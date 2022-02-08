@@ -5,7 +5,6 @@ export default function* rootSaga() {
     const sagas = [
         peopleSaga
     ]
-
     yield all(sagas.map(saga => spawn(saga)))
 }
 
