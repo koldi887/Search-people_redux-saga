@@ -9,9 +9,8 @@ let initialState = {
     data: null
 };
 
-
 const peopleSlice = createSlice({
-    name: 'init',
+    name: 'people',
     initialState,
     reducers: {
         loadUsers: (state, action) => {
@@ -26,7 +25,6 @@ const peopleSlice = createSlice({
         },
 
         loadUsersSuccess: (state, action) => {
-            console.log(action)
             return {
                 ...state,
                 loading: false,

@@ -1,9 +1,10 @@
 import React from 'react';
 
-export const NotFound = () => {
+export const Details = () => {
     return (
         <div>
-Not Found
+            details
         </div>
     );
 };
+
