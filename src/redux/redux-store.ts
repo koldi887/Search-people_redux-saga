@@ -3,7 +3,7 @@ import createSagaMiddleware from 'redux-saga';
 import {createReduxHistoryContext} from "redux-first-history";
 import {createBrowserHistory} from "history";
 import peopleSlice from "./reducers/people/peopleSlice";
-import rootSaga from "./sagas";
+import rootSaga from "./sagas/rootSaga";
 import userDetailsSlice from "./reducers/peopleDetails/userDetailsSlice";
 
 const {

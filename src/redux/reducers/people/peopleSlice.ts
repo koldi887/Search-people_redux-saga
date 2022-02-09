@@ -1,7 +1,16 @@
-import {createSlice} from "@reduxjs/toolkit";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../../redux-store";
+import {PeopleListResponseType} from "../../../types/apiResponseTypes";
 
-let initialState = {
+type InitialStateType = {
+    page: number,
+    search: string,
+    loading: boolean,
+    error: null | string,
+    data: null | PeopleListResponseType
+}
+
+let initialState: InitialStateType = {
     page: 1,
     search: '',
     loading: false,
@@ -13,7 +22,8 @@ const peopleSlice = createSlice({
     name: 'people',
     initialState,
     reducers: {
-        loadUsers: (state, action) => {
+
+        loadUsers: (state, action: PayloadAction<{ page: number, search: string }>) => {
             const {page, search} = action.payload
             return {
                 ...state,
@@ -23,7 +33,7 @@ const peopleSlice = createSlice({
             }
         },
 
-        loadUsersSuccess: (state, action) => {
+        loadUsersSuccess: (state, action: PayloadAction<PeopleListResponseType>) => {
             return {
                 ...state,
                 loading: false,
@@ -31,25 +41,7 @@ const peopleSlice = createSlice({
             }
         },
 
-        loadUserDetails: (state, action) => {
-            const {page, search} = action.payload
-            return {
-                ...state,
-                loading: true,
-                page,
-                search,
-            }
-        },
-
-        loadUserDetailsSuccess: (state, action) => {
-            return {
-                ...state,
-                loading: false,
-                data: action.payload
-            }
-        },
-
-        loadUsersFailure: (state, action) => {
+        loadUsersFailure: (state, action: PayloadAction<string>) => {
             return {
                 ...state,
                 loading: false,
@@ -58,7 +50,6 @@ const peopleSlice = createSlice({
         },
     },
 });
-
 
 export const {
     loadUsers,

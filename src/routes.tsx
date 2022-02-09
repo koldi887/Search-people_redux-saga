@@ -29,4 +29,5 @@ export const getRouteConfig = (id: string) => {
         const {element, ...rest} = route;
         return rest
     }
+    return null as unknown as string
 }

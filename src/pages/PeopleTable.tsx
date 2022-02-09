@@ -6,7 +6,7 @@ import PreLoader from "../components/common/Preloader/Preloader";
 import Paginator from "../components/common/Paginator/Paginator";
 import {Link} from "react-router-dom";
 
-export const PeopleTable = () => {
+export const PeopleTable: React.FC = () => {
     const people = useAppSelector(peopleSelector)
 
     const dispatch = useAppDispatch()
@@ -58,32 +58,30 @@ export const PeopleTable = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {// @ts-ignore
-                            people.data.results.map((character) => {
-                                const id = character.url.replaceAll(/\D/g, '')
-                                return (
-                                    <tr key={character.name}>
-                                        <td>{character.name}</td>
-                                        <td>{character.birth_year}</td>
-                                        <td>{character.eye_color}</td>
-                                        <td>{character.gender}</td>
-                                        <td>{character.hair_color}</td>
-                                        <td>{character.height}</td>
-                                        <td>
-                                            <Link
-                                                to={`/people/${id}`}
-                                            >
-                                                Details
-                                            </Link>
-                                        </td>
-                                    </tr>
-                                )
-                            })}
+                        {people.data?.results.map((character) => {
+                            const id = character.url.replaceAll(/\D/g, '')
+                            return (
+                                <tr key={character.name}>
+                                    <td>{character.name}</td>
+                                    <td>{character.birth_year}</td>
+                                    <td>{character.eye_color}</td>
+                                    <td>{character.gender}</td>
+                                    <td>{character.hair_color}</td>
+                                    <td>{character.height}</td>
+                                    <td>
+                                        <Link
+                                            to={`/people/${id}`}
+                                        >
+                                            Details
+                                        </Link>
+                                    </td>
+                                </tr>
+                            )
+                        })}
                         </tbody>
                     </table>
                     <Paginator
                         onPageChanged={onPageChanged}
-                        // @ts-ignore
                         totalItemsCount={people.data?.count}
                         currentPage={people.page}/>
                 </>
