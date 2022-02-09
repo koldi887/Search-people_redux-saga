@@ -1,7 +1,11 @@
-import React from "react";
-import App from "./App";
-import {Routes, Route} from "react-router-dom";
+import React from 'react';
 import {Details} from "./pages/Details";
+import {PeopleTable} from "./pages/PeopleTable";
+
+export enum ROUTE {
+    MAIN = '/',
+    PEOPLE = 'people/:id',
+}
 
 export const MAIN_ROUTE = 'MAIN_ROUTE'
 export const PEOPLE_DETAILS_ROUTE = 'PEOPLE_DETAILS_ROUTE'
@@ -9,26 +13,20 @@ export const PEOPLE_DETAILS_ROUTE = 'PEOPLE_DETAILS_ROUTE'
 export const routes = [
     {
         id: MAIN_ROUTE,
-        path: '/',
-        element: <App/>
+        path: ROUTE.MAIN,
+        element: <PeopleTable/>,
     },
     {
         id: PEOPLE_DETAILS_ROUTE,
-        path: '/people/:id',
-        element: <Details/>
-    }
+        path: ROUTE.PEOPLE,
+        element: <Details/>,
+    },
 ]
 
-export default function Routing()  {
-    return (
-        <Routes>
-            {routes.map(r =>{
-                const {id, ...props} = r
-                return (
-                    <Route key={id} {...props}/>
-                )
-            })}
-        </Routes>
-    );
-};
-
+export const getRouteConfig = (id: string) => {
+    const route = routes.find(r => r.id === id)
+    if (route) {
+        const {element, ...rest} = route;
+        return rest
+    }
+}

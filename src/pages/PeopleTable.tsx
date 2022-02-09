@@ -2,8 +2,8 @@ import React from 'react';
 import classes from '../App.module.css'
 import {useAppDispatch, useAppSelector} from "../hooks/redux";
 import {loadUsers, peopleSelector} from "../redux/reducers/people/peopleSlice";
-import PreLoader from "./common/Preloader/Preloader";
-import Paginator from "./common/Paginator/Paginator";
+import PreLoader from "../components/common/Preloader/Preloader";
+import Paginator from "../components/common/Paginator/Paginator";
 import {Link} from "react-router-dom";
 
 export const PeopleTable = () => {
@@ -18,11 +18,11 @@ export const PeopleTable = () => {
         }))
     }
 
-    const search = (e:React.ChangeEvent<HTMLInputElement>) => {
-            dispatch(loadUsers({
-                page: people.page,
-                search: e.target.value
-            }))
+    const search = (e: React.ChangeEvent<HTMLInputElement>) => {
+        dispatch(loadUsers({
+            page: people.page,
+            search: e.target.value
+        }))
     }
 
     return (

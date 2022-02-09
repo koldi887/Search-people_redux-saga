@@ -14,7 +14,6 @@ const peopleSlice = createSlice({
     initialState,
     reducers: {
         loadUsers: (state, action) => {
-            console.log(action)
             const {page, search} = action.payload
             return {
                 ...state,
@@ -25,6 +24,24 @@ const peopleSlice = createSlice({
         },
 
         loadUsersSuccess: (state, action) => {
+            return {
+                ...state,
+                loading: false,
+                data: action.payload
+            }
+        },
+
+        loadUserDetails: (state, action) => {
+            const {page, search} = action.payload
+            return {
+                ...state,
+                loading: true,
+                page,
+                search,
+            }
+        },
+
+        loadUserDetailsSuccess: (state, action) => {
             return {
                 ...state,
                 loading: false,
@@ -43,6 +60,10 @@ const peopleSlice = createSlice({
 });
 
 
-export const {loadUsers, loadUsersSuccess, loadUsersFailure} = peopleSlice.actions;
+export const {
+    loadUsers,
+    loadUsersSuccess,
+    loadUsersFailure
+} = peopleSlice.actions;
 export const peopleSelector = (state: RootState) => state.people;
 export default peopleSlice.reducer;

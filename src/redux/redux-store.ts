@@ -4,6 +4,7 @@ import {createReduxHistoryContext} from "redux-first-history";
 import {createBrowserHistory} from "history";
 import peopleSlice from "./reducers/people/peopleSlice";
 import rootSaga from "./sagas";
+import userDetailsSlice from "./reducers/peopleDetails/userDetailsSlice";
 
 const {
     createReduxHistory,
@@ -14,6 +15,7 @@ const {
 
 export const rootReducer = combineReducers({
     people: peopleSlice,
+    user: userDetailsSlice,
     router: routerReducer
 });
 
