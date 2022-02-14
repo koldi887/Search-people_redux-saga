@@ -1,5 +1,18 @@
-import {call, fork, put, select, StrictEffect, take, takeEvery} from 'redux-saga/effects'
-import {loadUsers, loadUsersFailure, loadUsersSuccess, peopleSelector} from "../../reducers/people/peopleSlice";
+import {
+    call,
+    fork,
+    put,
+    SagaReturnType,
+    select,
+    take,
+    takeEvery
+} from 'redux-saga/effects'
+import {
+    loadUsers,
+    loadUsersFailure,
+    loadUsersSuccess,
+    peopleSelector
+} from "../../reducers/people/peopleSlice";
 import {LOCATION_CHANGE} from "redux-first-history";
 import {matchPath} from "react-router-dom";
 import {getRouteConfig, PEOPLE_DETAILS_ROUTE, ROUTE} from "../../../routes";
@@ -9,39 +22,33 @@ import {
     loadUserDetailsSuccess
 } from "../../reducers/peopleDetails/userDetailsSlice";
 import {peopleAPI} from "../../../api/peopleApi";
-import {PeopleDetailsType, PeopleListResponseType} from "../../../types/apiResponseTypes";
 import {AnyAction as ReduxAction} from "redux";
+import {PayloadAction} from "@reduxjs/toolkit";
 
-export type LoadUsersPayloadType = {
-    payload: {
-        page: number,
-        search: string,
-    }
+type PeopleDetailsApiType = SagaReturnType<typeof peopleAPI.peopleDetails>
+type PeopleListApiType = SagaReturnType<typeof peopleAPI.peopleList>
+type PeopleSelectorType = SagaReturnType<typeof peopleSelector>
+type MatchPathType = ReturnType<typeof matchPath>
+
+export type LoadPeopleType = {
+    page: number,
+    search: string,
 }
 
-export type LoadPeopleDetailsPayloadType = {
-    payload: {
-        id: number,
-    }
-}
-
-function* loadPeopleDetails({payload}: LoadPeopleDetailsPayloadType):
-    Generator<StrictEffect, any, PeopleDetailsType> {
+function* loadPeopleDetails({payload}: PayloadAction<{ id: number }>) {
     const {id} = payload
     try {
-        const data = yield call(peopleAPI.peopleDetails, id)
+        const data: PeopleDetailsApiType = yield call(peopleAPI.peopleDetails, id)
         yield put(loadUserDetailsSuccess(data))
     } catch (e) {
         yield put(loadUserDetailsFailure('Something went wrong'))
     }
 }
 
-function* loadPeopleList({payload}: LoadUsersPayloadType):
-    Generator<StrictEffect, any, PeopleListResponseType> {
+function* loadPeopleList({payload}: PayloadAction<LoadPeopleType>) {
     const {page, search} = payload
-
     try {
-        const data = yield call(
+        const data: PeopleListApiType = yield call(
             peopleAPI.peopleList,
             {page, search}
         )
@@ -56,13 +63,15 @@ export function* loadUsersOnRouteEnter() {
     while (true) {
         const action: ReduxAction = yield take(LOCATION_CHANGE)
         const actionPath: string = action.payload.location.pathname
-
         if (actionPath === ROUTE.MAIN) {
-            const {page, search}: ReturnType<typeof peopleSelector> = yield select(peopleSelector)
+            const {
+                page,
+                search
+            }: PeopleSelectorType = yield select(peopleSelector)
             yield put(loadUsers({page, search}))
         }
 
-        const detailsPage: ReturnType<typeof matchPath> = matchPath(
+        const detailsPage: MatchPathType = matchPath(
             getRouteConfig(PEOPLE_DETAILS_ROUTE),
             actionPath
         )
